@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* html::-webkit-scrollbar {
-    display: none;
-  } */
-
   html::-webkit-scrollbar {
     @apply bg-white w-3 h-3;
   }
