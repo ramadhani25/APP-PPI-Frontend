@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Popover, Transition } from "@headlessui/react";
 import dummy from "assets/dummy-person.png";
 import logo_unila from "assets/logo-unila.png";
@@ -24,7 +24,7 @@ const CompHeader = () => {
 
   return (
     <div className="bg-white/90 fixed w-full backdrop-blur z-10 py-2 px-3 text-gray-800 flex justify-between items-center drop-shadow-sm">
-      <span className="flex items-center gap-2">
+      <Link to="/" className="flex items-center gap-2">
         <img
           src={logo_unila}
           alt="logo unila"
@@ -34,7 +34,7 @@ const CompHeader = () => {
         <span className="text-xs sm:text-base font-semibold text-orange-600 drop-shadow">
           Sistem Penilaian RPL
         </span>
-      </span>
+      </Link>
       <Popover className="relative">
         <Popover.Button className="transition-all flex items-center w-10 h-10 outline-none rounded-full cursor-pointer overflow-hidden drop-shadow-sm hover:drop-shadow">
           <img className="object-cover h-full w-full" src={dummy} alt="User" />
@@ -55,6 +55,18 @@ const CompHeader = () => {
               <div className="text-[10px]">{token?.email}</div>
             </div>
             <div className="flex flex-col">
+              <Link
+                className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"
+                to="/"
+              >
+                Mahasiswa
+              </Link>
+              <Link
+                className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"
+                to="nilai-mahasiswa"
+              >
+                Nilai
+              </Link>
               <button
                 onClick={onLogout}
                 className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"

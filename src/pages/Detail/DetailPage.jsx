@@ -64,7 +64,9 @@ const DetailPage = () => {
       const pembimbing2 = location.state.mahasiswa?.idpembimbing2;
       const pembimbing1 = location.state.mahasiswa?.idpembimbing1;
 
-      if (pembimbing1 && pembimbing2 && penguji && idmahasiswa) {
+      if (location.state.mahasiswa?.ipk) {
+        setIpk(location.state.mahasiswa?.ipk);
+      } else if (pembimbing1 && pembimbing2 && penguji && idmahasiswa) {
         axios({
           method: "PUT",
           url: `${baseurl}/mahasiswa/${idmahasiswa}/pembimbing1/${pembimbing1}/pembimbing2/${pembimbing2}/penguji/${penguji}`,
@@ -705,46 +707,48 @@ const DetailPage = () => {
     <>
       <div className="mb-2"></div>
       <Tab.Group>
-        <Tab.List className={`flex gap-2 mb-2`}>
+        <Tab.List className={`flex flex-wrap gap-2 mb-2`}>
           <button
             onClick={() => navigate(-1)}
             className="bg-white hover:bg-slate-50 p-2 rounded-xl shadow mr-4"
           >
             <IoArrowBack />
           </button>
-          <Tab as={Fragment}>
-            {({ selected }) => (
-              <button
-                className={`p-2 px-4 rounded-xl shadow text-xs font-semibold transition-all ${
-                  selected ? "bg-orange-500 text-white" : "bg-white"
-                }`}
-              >
-                Pembimbing 1
-              </button>
-            )}
-          </Tab>
-          <Tab as={Fragment}>
-            {({ selected }) => (
-              <button
-                className={`p-2 px-4 rounded-xl shadow text-xs font-semibold transition-all ${
-                  selected ? "bg-orange-500 text-white" : "bg-white"
-                }`}
-              >
-                Pembimbing 2
-              </button>
-            )}
-          </Tab>
-          <Tab as={Fragment}>
-            {({ selected }) => (
-              <button
-                className={`p-2 px-4 rounded-xl shadow text-xs font-semibold transition-all ${
-                  selected ? "bg-orange-500 text-white" : "bg-white"
-                }`}
-              >
-                Penguji
-              </button>
-            )}
-          </Tab>
+          <div className="flex flex-wrap gap-2">
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`p-2 px-4 rounded-xl shadow whitespace-nowrap text-xs font-semibold transition-all ${
+                    selected ? "bg-orange-500 text-white" : "bg-white"
+                  }`}
+                >
+                  Pembimbing 1
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`p-2 px-4 rounded-xl shadow whitespace-nowrap text-xs font-semibold transition-all ${
+                    selected ? "bg-orange-500 text-white" : "bg-white"
+                  }`}
+                >
+                  Pembimbing 2
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`p-2 px-4 rounded-xl shadow whitespace-nowrap text-xs font-semibold transition-all ${
+                    selected ? "bg-orange-500 text-white" : "bg-white"
+                  }`}
+                >
+                  Penguji
+                </button>
+              )}
+            </Tab>
+          </div>
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
