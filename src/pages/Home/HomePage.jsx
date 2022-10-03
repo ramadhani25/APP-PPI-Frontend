@@ -430,25 +430,25 @@ const HomePage = () => {
                                 {item.npm}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am1}
+                                {item.am1?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am2}
+                                {item.am2?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am3}
+                                {item.am3?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am4}
+                                {item.am4?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am5}
+                                {item.am5?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.am6}
+                                {item.am6?.toFixed(2)}
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
-                                {item.ipk}
+                                {item.ipk?.toFixed(2)}
                               </td>
                             </tr>
                           )

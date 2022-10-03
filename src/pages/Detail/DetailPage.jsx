@@ -778,7 +778,7 @@ const DetailPage = () => {
                   IPK
                 </div>
                 <div className="col-span-full p-1 flex items-center sm:col-span-10">
-                  {ipk ? ipk : ""}
+                  {ipk ? ipk?.toFixed(2) : ""}
                 </div>
               </div>
             </div>
@@ -1413,7 +1413,7 @@ const DetailPage = () => {
                   IPK
                 </div>
                 <div className="col-span-full p-1 flex items-center sm:col-span-10">
-                  {ipk ? ipk : ""}
+                  {ipk ? ipk?.toFixed(2) : ""}
                 </div>
               </div>
             </div>
@@ -2048,7 +2048,7 @@ const DetailPage = () => {
                   IPK
                 </div>
                 <div className="col-span-full p-1 flex items-center sm:col-span-10">
-                  {ipk ? ipk : ""}
+                  {ipk ? ipk?.toFixed(2) : ""}
                 </div>
               </div>
             </div>
