@@ -55,18 +55,6 @@ const CompHeader = () => {
               <div className="text-[10px]">{token?.email}</div>
             </div>
             <div className="flex flex-col">
-              <Link
-                className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"
-                to="/"
-              >
-                Mahasiswa
-              </Link>
-              <Link
-                className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"
-                to="nilai-mahasiswa"
-              >
-                Nilai
-              </Link>
               <button
                 onClick={onLogout}
                 className="text-xs text-left py-2 px-2 rounded-lg hover:bg-white hover:text-black transition-all"

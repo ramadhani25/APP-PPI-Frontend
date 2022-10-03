@@ -5,7 +5,6 @@ import {
   HomePage,
   InputNilaiPage,
   LoginPage,
-  MahasiswaPage,
   PrivateRoute,
 } from "./pages";
 
@@ -27,14 +26,6 @@ const App = () => {
             element={
               <PrivateRoute>
                 <HomePage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="nilai-mahasiswa"
-            element={
-              <PrivateRoute>
-                <MahasiswaPage />
               </PrivateRoute>
             }
           />
