@@ -4,6 +4,7 @@ import { API_URL_getmahasiswa } from "constants";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { RiDeleteBin7Line } from "react-icons/ri";
+import { VscFilePdf, VscRefresh } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
@@ -12,6 +13,7 @@ import jwt_decode from "jwt-decode";
 import { baseurl } from "constants";
 import Swal from "sweetalert2";
 import { Tab } from "@headlessui/react";
+import axios from "axios";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState();
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [refreshLoading, setRefreshLoading] = useState(false);
 
   const tableHead = [
     "No",
@@ -35,13 +38,14 @@ const HomePage = () => {
     "No",
     "Nama",
     "NPM",
-    "MK1",
-    "MK2",
-    "MK3",
-    "MK4",
-    "MK5",
-    "MK6",
+    "Kode Etik dan Etika Profesi",
+    "Profesionalisme Keinsiinyuran",
+    "Keselamatan Kesehatan Keamanan Kerja dan Lingkungan",
+    "Praktik Keinsinyuran",
+    "Studi Kasus",
+    "Seminar Workshop dan Diskusi",
     "IPK",
+    "Aksi",
   ];
   const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
@@ -122,6 +126,32 @@ const HomePage = () => {
       }
     });
   };
+  const onPrint = (e, item) => {
+    navigate(`/print_nilaimahasiswa`, {
+      state: {
+        mahasiswa: item,
+      },
+    });
+  };
+  const onRefresh = (item) => {
+    setRefreshLoading(item.id);
+    axios({
+      method: "PUT",
+      url: `${baseurl}/mahasiswa/${item.id}/pembimbing1/${item.idpembimbing1}/pembimbing2/${item.idpembimbing2}/penguji/${item.idpenguji}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        fetchData().then(() => {
+          setRefreshLoading(false);
+        });
+      })
+      .catch((error) => {
+        setRefreshLoading(false);
+        console.log(error);
+      });
+  };
 
   const handlePageClick = (e) => {
     const param = {
@@ -149,7 +179,7 @@ const HomePage = () => {
 
   const actionLihat = [
     {
-      name: "lihat",
+      name: "Lihat",
       icon: <FiEye />,
       color: "text-gray-800",
       func: onDetail,
@@ -157,13 +187,13 @@ const HomePage = () => {
   ];
   const actionEdit = [
     {
-      name: "lihat",
+      name: "Lihat",
       icon: <FiEye />,
       color: "text-gray-800",
       func: onDetail,
     },
     {
-      name: "edit",
+      name: "Edit",
       icon: <FiEdit />,
       color: "text-blue-500",
       func: onEdit,
@@ -171,13 +201,13 @@ const HomePage = () => {
   ];
   const actionDelete = [
     {
-      name: "lihat",
+      name: "Lihat",
       icon: <FiEye />,
       color: "text-gray-800",
       func: onDetail,
     },
     {
-      name: "hapus",
+      name: "Hapus",
       icon: <RiDeleteBin7Line />,
       color: "text-red-500",
       func: onDelete,
@@ -308,34 +338,55 @@ const HomePage = () => {
                                 item.idpembimbing2 === token?.idUser ||
                                 item.idpenguji === token?.idUser
                                   ? actionDelete.map((action, actionIdx) => (
-                                      <button
+                                      <div
                                         key={actionIdx}
-                                        className={`mx-1 ${action.color}`}
-                                        onClick={() => action.func(item)}
+                                        className="group relative flex items-center justify-center"
                                       >
-                                        {action.icon}
-                                      </button>
+                                        <button
+                                          className={`mx-1 ${action.color}`}
+                                          onClick={() => action.func(item)}
+                                        >
+                                          {action.icon}
+                                        </button>
+                                        <span className="group-hover:visible absolute rounded-md shadow-md text-white bg-gray-900 text-xs font-bold p-1 px-2 text-center min-w-max invisible mb-16 opacity-0 group-hover:opacity-100 transition-all duration-150">
+                                          {action.name}
+                                        </span>
+                                      </div>
                                     ))
                                   : item.idpembimbing1 &&
                                     item.idpembimbing2 &&
                                     item.idpenguji
                                   ? actionLihat.map((action, actionIdx) => (
-                                      <button
+                                      <div
                                         key={actionIdx}
-                                        className={`mx-1 ${action.color}`}
-                                        onClick={() => action.func(item)}
+                                        className="group relative flex items-center justify-center"
                                       >
-                                        {action.icon}
-                                      </button>
+                                        <button
+                                          className={`mx-1 ${action.color}`}
+                                          onClick={() => action.func(item)}
+                                        >
+                                          {action.icon}
+                                        </button>
+                                        <span className="group-hover:visible absolute rounded-md shadow-md text-white bg-gray-900 text-xs font-bold p-1 px-2 text-center min-w-max invisible mb-16 opacity-0 group-hover:opacity-100 transition-all duration-150">
+                                          {action.name}
+                                        </span>
+                                      </div>
                                     ))
                                   : actionEdit.map((action, actionIdx) => (
-                                      <button
+                                      <div
                                         key={actionIdx}
-                                        className={`mx-1 ${action.color}`}
-                                        onClick={() => action.func(item)}
+                                        className="group relative flex items-center justify-center"
                                       >
-                                        {action.icon}
-                                      </button>
+                                        <button
+                                          className={`mx-1 ${action.color}`}
+                                          onClick={() => action.func(item)}
+                                        >
+                                          {action.icon}
+                                        </button>
+                                        <span className="group-hover:visible absolute rounded-md shadow-md text-white bg-gray-900 text-xs font-bold p-1 px-2 text-center min-w-max invisible mb-16 opacity-0 group-hover:opacity-100 transition-all duration-150">
+                                          {action.name}
+                                        </span>
+                                      </div>
                                     ))}
                               </td>
                             </tr>
@@ -377,10 +428,7 @@ const HomePage = () => {
                     <thead>
                       <tr className="border-b-2 border-gray-200">
                         {tableHeadNilai.map((item, itemIdx) => (
-                          <th
-                            key={itemIdx}
-                            className="p-2 text-sm whitespace-nowrap"
-                          >
+                          <th key={itemIdx} className="p-2 text-sm">
                             {item}
                           </th>
                         ))}
@@ -449,6 +497,42 @@ const HomePage = () => {
                               </td>
                               <td className="p-2 text-center whitespace-nowrap">
                                 {item.ipk?.toFixed(2)}
+                              </td>
+                              <td className="p-2 px-4 text-lg text-center whitespace-nowrap flex justify-center items-center">
+                                {item.idpembimbing1 &&
+                                  item.idpembimbing2 &&
+                                  item.idpenguji && (
+                                    <div className="flex gap-2 items-center">
+                                      <div className={`text-blue-500`}>
+                                        <div className="group relative flex items-center justify-center">
+                                          <button
+                                            onClick={() => onRefresh(item)}
+                                            className={`text-blue-500 ${
+                                              refreshLoading === item.id
+                                                ? "animate-spin"
+                                                : ""
+                                            }`}
+                                          >
+                                            <VscRefresh />
+                                          </button>
+                                          <span className="group-hover:visible absolute rounded-md shadow-md text-white bg-gray-900 text-xs font-bold p-1 px-2 text-center min-w-max invisible mb-16 mr-16 opacity-0 group-hover:opacity-100 transition-all duration-150">
+                                            Refresh Nilai
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className="group relative flex items-center justify-center">
+                                        <button
+                                          onClick={(e) => onPrint(e, item)}
+                                          className={`text-blue-500`}
+                                        >
+                                          <VscFilePdf />
+                                        </button>
+                                        <span className="group-hover:visible absolute rounded-md shadow-md text-white bg-gray-900 text-xs font-bold p-1 px-2 text-center min-w-max invisible mb-16 opacity-0 group-hover:opacity-100 transition-all duration-150">
+                                          Print
+                                        </span>
+                                      </div>
+                                    </div>
+                                  )}
                               </td>
                             </tr>
                           )

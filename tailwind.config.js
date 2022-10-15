@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["montserrat", ...defaultTheme.fontFamily.sans],
+        serif: ["Times New Roman", ...defaultTheme.fontFamily.serif],
+        cambria: ["Cambria", ...defaultTheme.fontFamily.serif],
       },
       colors: {
         custom: {

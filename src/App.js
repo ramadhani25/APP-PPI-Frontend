@@ -6,6 +6,7 @@ import {
   InputNilaiPage,
   LoginPage,
   PrivateRoute,
+  TemplatePdf,
 } from "./pages";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/print_nilaimahasiswa" element={<TemplatePdf />} />
         <Route
           path="/"
           element={
