@@ -1,4 +1,4 @@
-const base = `http://23.251.150.1:5001`;
+const base = `https://dizzy-ruby-lemming.cyclic.app`;
 
 export const baseurl = `${base}`;
 export const API_URL_login = `${baseurl}/login`;
